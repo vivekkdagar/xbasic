@@ -1,4 +1,4 @@
-from value import Value
+from .value import Value
 class String(Value):
   def __init__(self, value):
     super().__init__()
@@ -11,7 +11,7 @@ class String(Value):
       return None, Value.illegal_operation(self, other)
 
   def multed_by(self, other):
-    from number import Number
+    from .number import Number
     if isinstance(other, Number):
       return String(self.value * other.value).set_context(self.context), None
     else:

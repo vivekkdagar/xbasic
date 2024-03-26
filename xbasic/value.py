@@ -56,7 +56,7 @@ class Value:
 
   def execute(self, args):
 
-    from error_handler.rtresult import RTResult
+    from .error_handler.rtresult import RTResult
     return RTResult().failure(self.illegal_operation())
 
   def copy(self):
@@ -66,9 +66,10 @@ class Value:
     return False
 
   def illegal_operation(self, other=None):
-    if not other: other = self
+    if not other:
+      other = self
 
-    from error_handler.rterror import RTError
+    from .error_handler.rterror import RTError
     return RTError(
       self.pos_start, other.pos_end,
       'Illegal operation',

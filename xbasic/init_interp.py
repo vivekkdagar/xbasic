@@ -1,6 +1,6 @@
-from context_handler.symbol_table import SymbolTable
-from builtinfunction import BuiltInFunction
-from number import Number
+from .context_handler.symbol_table import SymbolTable
+from .builtinfunction import BuiltInFunction
+from .number import Number
 
 global_symbol_table = SymbolTable()
 global_symbol_table.set("NULL", Number.null)
@@ -27,22 +27,22 @@ global_symbol_table.set("RUN", BuiltInFunction.run)
 def run(fn, text):
     # Generate tokens
 
-    from lexer import Lexer
+    from .lexer import Lexer
     lexer = Lexer(fn, text)
     tokens, error = lexer.make_tokens()
     if error: return None, error
 
     # Generate AST
-    from parser import Parser
+    from .parser import Parser
     parser = Parser(tokens)
     ast = parser.parse()
     if ast.error: return None, ast.error
 
     # Run program
-    from Interpreter import Interpreter
+    from .Interpreter import Interpreter
     interpreter = Interpreter()
 
-    from context_handler.context import Context
+    from .context_handler.context import Context
     context = Context('<program>')
     context.symbol_table = global_symbol_table
     result = interpreter.visit(ast.node, context)

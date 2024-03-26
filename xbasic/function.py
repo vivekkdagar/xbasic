@@ -1,6 +1,6 @@
-from value import Value
-from error_handler.rterror import RTError
-from error_handler.rtresult import RTResult
+from .value import Value
+from .error_handler.rterror import RTError
+from .error_handler.rtresult import RTResult
 
 class BaseFunction(Value):
     def __init__(self, name):
@@ -9,10 +9,10 @@ class BaseFunction(Value):
 
     def generate_new_context(self):
 
-        from context_handler.context import Context
+        from .context_handler.context import Context
         new_context = Context(self.name, self.context, self.pos_start)
 
-        from context_handler.symbol_table import SymbolTable
+        from .context_handler.symbol_table import SymbolTable
         new_context.symbol_table = SymbolTable(new_context.parent.symbol_table)
         return new_context
 
@@ -60,7 +60,7 @@ class Function(BaseFunction):
     def execute(self, args):
         res = RTResult()
 
-        from Interpreter import Interpreter
+        from .Interpreter import Interpreter
         interpreter = Interpreter()
         exec_ctx = self.generate_new_context()
 
@@ -70,7 +70,7 @@ class Function(BaseFunction):
         value = res.register(interpreter.visit(self.body_node, exec_ctx))
         if res.should_return() and res.func_return_value == None: return res
 
-        from number import Number
+        from .number import Number
         ret_value = (value if self.should_auto_return else None) or res.func_return_value or Number.null
         return res.success(ret_value)
 

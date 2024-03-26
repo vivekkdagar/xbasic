@@ -1,6 +1,6 @@
-from utils.position import Position
-from utils.token import Token
-from utils.token_list import *
+from .utils.position import Position
+from .utils.token import Token
+from .utils.token_list import *
 
 
 class Lexer:
@@ -76,7 +76,7 @@ class Lexer:
                 char = self.current_char
                 self.advance()
 
-                from error_handler.error import IllegalCharError
+                from .error_handler.error import IllegalCharError
                 return [], IllegalCharError(pos_start, self.pos, "'" + char + "'")
 
         tokens.append(Token(TT_EOF, pos_start=self.pos))
@@ -156,7 +156,7 @@ class Lexer:
 
         self.advance()
 
-        from error_handler.error import ExpectedCharError
+        from .error_handler.error import ExpectedCharError
         return None, ExpectedCharError(pos_start, self.pos, "'=' (after '!')")
 
     def make_equals(self):

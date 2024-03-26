@@ -1,4 +1,4 @@
-from value import Value
+from .value import Value
 
 class Number(Value):
     def __init__(self, value):
@@ -26,7 +26,7 @@ class Number(Value):
     def dived_by(self, other):
         if isinstance(other, Number):
             if other.value == 0:
-                from error_handler.rterror import RTError
+                from .error_handler.rterror import RTError
                 return None, RTError(
                     other.pos_start, other.pos_end,
                     'Division by zero',

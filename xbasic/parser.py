@@ -1,7 +1,7 @@
-from utils.token_list import *
-from utils.parse_result import ParseResult
-from error_handler.error import InvalidSyntaxError
-from utils.nodes import *
+from .utils.token_list import *
+from .utils.parse_result import ParseResult
+from .error_handler.error import InvalidSyntaxError
+from .utils.nodes import *
 
 
 class Parser:

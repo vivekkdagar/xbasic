@@ -1,7 +1,7 @@
-from error_handler.rtresult import RTResult
-from utils.token_list import *
-from number import Number
-from list import List
+from .error_handler.rtresult import RTResult
+from .utils.token_list import *
+from .number import Number
+from .list import List
 
 class Interpreter:
     def visit(self, node, context):
@@ -20,7 +20,7 @@ class Interpreter:
         )
 
     def visit_StringNode(self, node, context):
-        from string import String
+        from .string_value import String
         return RTResult().success(
             String(node.tok.value).set_context(context).set_pos(node.pos_start, node.pos_end)
         )
@@ -43,7 +43,7 @@ class Interpreter:
         value = context.symbol_table.get(var_name)
 
         if not value:
-            from error_handler.rterror import RTError
+            from .error_handler.rterror import RTError
             return res.failure(RTError(
                 node.pos_start, node.pos_end,
                 f"'{var_name}' is not defined",
@@ -215,7 +215,7 @@ class Interpreter:
         body_node = node.body_node
         arg_names = [arg_name.value for arg_name in node.arg_name_toks]
 
-        from function import Function
+        from .function import Function
         func_value = Function(func_name, body_node, arg_names, node.should_auto_return).set_context(context).set_pos(
             node.pos_start, node.pos_end)
 

@@ -10,7 +10,7 @@ class RTError(Error):
         result = self.generate_traceback()
         result += f'{self.error_name}: {self.details}'
 
-        from string_with_arrows import string_with_arrows
+        from .string_with_arrows import string_with_arrows
         result += '\n\n' + string_with_arrows(self.pos_start.ftxt, self.pos_start, self.pos_end)
         return result
 

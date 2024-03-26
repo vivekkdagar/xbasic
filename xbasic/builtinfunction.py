@@ -1,10 +1,10 @@
-from function import BaseFunction
-from error_handler.rtresult import RTResult
+from .function import BaseFunction
+from .error_handler.rtresult import RTResult
 import os
-from number import Number
-from string_value import String
-from list import List
-from error_handler.rterror import RTError
+from .number import Number
+from .string_value import String
+from .list import List
+from .error_handler.rterror import RTError
 
 
 class BuiltInFunction(BaseFunction):

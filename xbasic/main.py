@@ -2,7 +2,7 @@ import click
 import webbrowser
 import platform
 import datetime
-from shell import entry_shell
+from .init_interp import run
 
 
 @click.group()
@@ -16,6 +16,21 @@ def report():
     click.echo("Going to the Git page...")
     webbrowser.open("https://github.com/vivekkdagar/xbasic")
 
+
+def entry_shell():
+    while True:
+        text = input('>> ')
+        if text.strip() == "": continue
+        result, error = run('<stdin>', text)
+
+        if error:
+            print(error.as_string())
+        elif result:
+            print(result)
+            #if len(result.elements) == 1:
+             #   print(repr(result.elements[0]))
+           # else:
+            #    print(repr(result))
 
 @cli.command()
 @click.option('-f', type=click.Path(exists=True), default=None, help='Specify a file to execute within the shell.')

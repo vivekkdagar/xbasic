@@ -1,6 +1,6 @@
-from value import Value
-from number import Number
-from error_handler.rterror import RTError
+from .value import Value
+from .number import Number
+from .error_handler.rterror import RTError
 class List(Value):
     def __init__(self, elements):
         super().__init__()
