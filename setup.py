@@ -7,7 +7,6 @@ setup(
     install_requires=[
         'click~=8.1.7',
         'setuptools~=68.0.0',
-        'webbrowser',
         'wheel',
     ],
     entry_points={
