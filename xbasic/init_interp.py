@@ -30,13 +30,15 @@ def run(fn, text):
     from .lexer import Lexer
     lexer = Lexer(fn, text)
     tokens, error = lexer.make_tokens()
-    if error: return None, error
+    if error:
+        return None, error
 
     # Generate AST
     from .parser import Parser
     parser = Parser(tokens)
     ast = parser.parse()
-    if ast.error: return None, ast.error
+    if ast.error:
+        return None, ast.error
 
     # Run program
     from .Interpreter import Interpreter

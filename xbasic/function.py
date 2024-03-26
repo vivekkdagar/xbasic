@@ -2,6 +2,7 @@ from .value import Value
 from .error_handler.rterror import RTError
 from .error_handler.rtresult import RTResult
 
+
 class BaseFunction(Value):
     def __init__(self, name):
         super().__init__()
@@ -35,7 +36,8 @@ class BaseFunction(Value):
 
         return res.success(None)
 
-    def populate_args(self, arg_names, args, exec_ctx):
+    @staticmethod
+    def populate_args(arg_names, args, exec_ctx):
         for i in range(len(args)):
             arg_name = arg_names[i]
             arg_value = args[i]
@@ -45,7 +47,8 @@ class BaseFunction(Value):
     def check_and_populate_args(self, arg_names, args, exec_ctx):
         res = RTResult()
         res.register(self.check_args(arg_names, args))
-        if res.should_return(): return res
+        if res.should_return():
+            return res
         self.populate_args(arg_names, args, exec_ctx)
         return res.success(None)
 
@@ -65,10 +68,12 @@ class Function(BaseFunction):
         exec_ctx = self.generate_new_context()
 
         res.register(self.check_and_populate_args(self.arg_names, args, exec_ctx))
-        if res.should_return(): return res
+        if res.should_return():
+            return res
 
         value = res.register(interpreter.visit(self.body_node, exec_ctx))
-        if res.should_return() and res.func_return_value == None: return res
+        if res.should_return() and res.func_return_value is None:
+            return res
 
         from .number import Number
         ret_value = (value if self.should_auto_return else None) or res.func_return_value or Number.null

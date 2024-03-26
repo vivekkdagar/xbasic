@@ -20,17 +20,15 @@ def report():
 def entry_shell():
     while True:
         text = input('>> ')
-        if text.strip() == "": continue
+        if text.strip() == "":
+            continue
         result, error = run('<stdin>', text)
 
         if error:
             print(error.as_string())
         elif result:
             print(result)
-            #if len(result.elements) == 1:
-             #   print(repr(result.elements[0]))
-           # else:
-            #    print(repr(result))
+
 
 @cli.command()
 @click.option('-f', type=click.Path(exists=True), default=None, help='Specify a file to execute within the shell.')
@@ -47,7 +45,7 @@ def shell(f):
 
 
 def print_intro():
-    version = "1.0"
+    version = "1.0.2"
     current_date_time = datetime.datetime.now().strftime("%b %d %Y, %H:%M:%S")
     os_name = platform.system()
     intro = f"XBasic {version} ({current_date_time}) on {os_name.lower()}"

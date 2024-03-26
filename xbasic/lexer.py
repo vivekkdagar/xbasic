@@ -18,7 +18,7 @@ class Lexer:
     def make_tokens(self):
         tokens = []
 
-        while self.current_char != None:
+        while self.current_char is not None:
             if self.current_char in ' \t':
                 self.advance()
             elif self.current_char == '#':
@@ -60,7 +60,8 @@ class Lexer:
                 self.advance()
             elif self.current_char == '!':
                 token, error = self.make_not_equals()
-                if error: return [], error
+                if error:
+                    return [], error
                 tokens.append(token)
             elif self.current_char == '=':
                 tokens.append(self.make_equals())
@@ -87,9 +88,10 @@ class Lexer:
         dot_count = 0
         pos_start = self.pos.copy()
 
-        while self.current_char != None and self.current_char in DIGITS + '.':
+        while self.current_char is not None and self.current_char in DIGITS + '.':
             if self.current_char == '.':
-                if dot_count == 1: break
+                if dot_count == 1:
+                    break
                 dot_count += 1
             num_str += self.current_char
             self.advance()
@@ -110,7 +112,7 @@ class Lexer:
             't': '\t'
         }
 
-        while self.current_char != None and (self.current_char != '"' or escape_character):
+        while self.current_char is not None and (self.current_char != '"' or escape_character):
             if escape_character:
                 string += escape_characters.get(self.current_char, self.current_char)
             else:
@@ -128,7 +130,7 @@ class Lexer:
         id_str = ''
         pos_start = self.pos.copy()
 
-        while self.current_char != None and self.current_char in LETTERS_DIGITS + '_':
+        while self.current_char is not None and self.current_char in LETTERS_DIGITS + '_':
             id_str += self.current_char
             self.advance()
 

@@ -1,5 +1,6 @@
 from .value import Value
 
+
 class Number(Value):
     def __init__(self, value):
         super().__init__()
@@ -114,5 +115,6 @@ Number.null = Number(0)
 Number.false = Number(0)
 Number.true = Number(1)
 
-import math
-Number.math_PI = Number(math.pi)
+
+from math import pi as pi
+Number.math_PI = Number(pi)
