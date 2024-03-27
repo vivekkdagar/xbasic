@@ -110,7 +110,10 @@ class Parser:
     def expr(self):
         res = ParseResult()
 
-        if self.current_tok.matches(TT_KEYWORD, 'VAR'):
+        if (self.current_tok.matches(TT_KEYWORD, 'num') or self.current_tok.matches(TT_KEYWORD, 'text')
+                or self.current_tok.matches(TT_KEYWORD, 'list')):
+            dtype = self.current_tok.value
+
             res.register_advancement()
             self.advance()
 
@@ -135,7 +138,7 @@ class Parser:
             expr = res.register(self.expr())
             if res.error:
                 return res
-            return res.success(VarAssignNode(var_name, expr))
+            return res.success(VarAssignNode(var_name, expr, dtype))
 
         node = res.register(self.bin_op(self.comp_expr, ((TT_KEYWORD, 'AND'), (TT_KEYWORD, 'OR'))))
 

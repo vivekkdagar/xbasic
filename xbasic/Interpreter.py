@@ -1,3 +1,4 @@
+import xbasic.string_value
 from .error_handler.rtresult import RTResult
 from .utils.token_list import *
 from .number import Number
@@ -8,6 +9,9 @@ class Interpreter:
     def visit(self, node, context):
         method_name = f'visit_{type(node).__name__}'
         method = getattr(self, method_name, self.no_visit_method)
+
+        if "access" in method_name.lower():
+            return self.visit_VarAccessNode(node, data_type="", context=context)
         return method(node, context)
 
     def no_visit_method(self, node, context):
@@ -42,7 +46,7 @@ class Interpreter:
         )
 
     @staticmethod
-    def visit_VarAccessNode(node, context):
+    def visit_VarAccessNode(node, data_type, context):
         res = RTResult()
         var_name = node.var_name_tok.value
         value = context.symbol_table.get(var_name)
@@ -65,8 +69,28 @@ class Interpreter:
         if res.should_return():
             return res
 
-        context.symbol_table.set(var_name, value)
-        return res.success(value)
+        from .lexer import Lexer
+        obj = Lexer("fn", str(value))
+
+        a = str(obj.make_tokens()).lower()
+        if (("int" in a or "float" in a or "minus" in a) and "comma" not in a) and (str(node.dtype).lower() == "num"):
+            context.symbol_table.set(var_name, value)
+            return res.success(value)
+        if isinstance(value, xbasic.string_value.String) and "comma" not in a:
+            if str(node.dtype).lower() == "text":
+                context.symbol_table.set(var_name, value)
+                return res.success(value)
+        if str(node.dtype).lower() == "list":
+            if "comma" in a:
+                context.symbol_table.set(var_name, value)
+                return res.success(value)
+
+        from .error_handler.rterror import RTError
+        return res.failure(RTError(
+            node.pos_start, node.pos_end,
+            f"Error: no viable conversion from '{a}' to '{str(node.dtype).lower()}'",
+            context
+        ))
 
     def visit_BinOpNode(self, node, context):
         res = RTResult()

@@ -79,7 +79,6 @@ class Lexer:
 
                 from .error_handler.error import IllegalCharError
                 return [], IllegalCharError(pos_start, self.pos, "'" + char + "'")
-
         tokens.append(Token(TT_EOF, pos_start=self.pos))
         return tokens, None
 
