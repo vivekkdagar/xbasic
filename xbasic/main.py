@@ -39,13 +39,17 @@ def shell(f):
         if not f.endswith('.bsx'):
             click.echo("Error: File must end with '.bsx'.")
             return
-        print(f)
+        result, error = run('<stdin>', f'RUN("{f}")')
+        if error:
+            print(error.as_string())
+        elif result:
+            print("The process returned ", result)
     else:
         entry_shell()
 
 
 def print_intro():
-    version = "1.0.2"
+    version = "1.1.0"
     current_date_time = datetime.datetime.now().strftime("%b %d %Y, %H:%M:%S")
     os_name = platform.system()
     intro = f"XBasic {version} ({current_date_time}) on {os_name.lower()}"

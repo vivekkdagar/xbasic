@@ -205,7 +205,7 @@ class BuiltInFunction(BaseFunction):
                 exec_ctx
             ))
 
-        from init_interp import run
+        from .init_interp import run
         _, error = run(fn, script)
 
         if error:
