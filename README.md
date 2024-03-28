@@ -48,19 +48,18 @@
 
   
    * 
-   * [:camera: Screenshots](#camera-screenshots)
-   * [:toolbox: Installation (from PyPI or Build from Source)](#toolbox-installation-from-pypi-or-build-from-source)
+   * 
+   * [:toolbox: Installation (from PyPI or Build from Source)]()
    * [:book: Usage Guide](#book-usage-guide)
    * [:wave: Contributing](#wave-contributing)
    * [:grey_question: FAQ](#grey_question-faq)
 
 <!-- TOC end -->
 - [Project Feature Breakdown](#-project-feature-breakdown)
-- [Installation & Usage Guide](#pypi)
+- [Screenshots](#camera-screenshots)
+- [Installation & Usage Guide](#toolbox-installation-from-pypi-or-build-from-source)
 - [Contributing](#wave-contributing)
 - [FAQ](#grey_question-faq)
-- [License](#warning-license)
-- [Acknowledgements](#gem-acknowledgements)
 
 
 <!-- TOC --><a name="star2-about-the-project"></a>
