@@ -1,21 +1,3 @@
-<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
-
-   * [🪄 Project Feature Breakdown](#-project-feature-breakdown)
-- [:notebook_with_decorative_cover: Table of Contents](#notebook_with_decorative_cover-table-of-contents)
-   * [:star2: About the Project](#star2-about-the-project)
-      + [:camera: Screenshots](#camera-screenshots)
-         - [Executing a file within the shell](#executing-a-file-within-the-shell)
-         - [Using the interactive shell](#using-the-interactive-shell)
-         - [Opening the github page](#opening-the-github-page)
-   * [:toolbox: Installation (from PyPI or Build from Source)](#toolbox-installation-from-pypi-or-build-from-source)
-      + [Build from Source](#build-from-source)
-   * [:book: Usage Guide](#book-usage-guide)
-   * [:wave: Contributing](#wave-contributing)
-   * [:grey_question: FAQ](#grey_question-faq)
-   * [:warning: License](#warning-license)
-
-<!-- TOC end -->
-
 <div align='center'>
 
 <img src=https://github.com/vivekkdagar/xbasic/blob/main/assets/menu.png alt="logo"/>
@@ -62,7 +44,18 @@
 <!-- TOC --><a name="notebook_with_decorative_cover-table-of-contents"></a>
 # :notebook_with_decorative_cover: Table of Contents
 
-- [About the Project](#star2-about-the-project)
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+  
+   * 
+   * [:camera: Screenshots](#camera-screenshots)
+   * [:toolbox: Installation (from PyPI or Build from Source)](#toolbox-installation-from-pypi-or-build-from-source)
+   * [:book: Usage Guide](#book-usage-guide)
+   * [:wave: Contributing](#wave-contributing)
+   * [:grey_question: FAQ](#grey_question-faq)
+
+<!-- TOC end -->
+- [Project Feature Breakdown](#-project-feature-breakdown)
 - [Installation & Usage Guide](#pypi)
 - [Contributing](#wave-contributing)
 - [FAQ](#grey_question-faq)
