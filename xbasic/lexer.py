@@ -95,10 +95,9 @@ class Lexer:
             num_str += self.current_char
             self.advance()
 
-        if dot_count == 0:
-            return Token(TT_INT, int(num_str), pos_start, self.pos)
-        else:
-            return Token(TT_FLOAT, float(num_str), pos_start, self.pos)
+        tok_type = TT_INT if dot_count == 0 else TT_FLOAT
+        value = int(num_str) if tok_type == TT_INT else float(num_str)
+        return Token(tok_type, value, pos_start, self.pos)
 
     def make_string(self):
         string = ''

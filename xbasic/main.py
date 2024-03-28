@@ -49,7 +49,7 @@ def shell(f):
 
 
 def print_intro():
-    version = "1.2.0"
+    version = "1.2.1"
     current_date_time = datetime.datetime.now().strftime("%b %d %Y, %H:%M:%S")
     os_name = platform.system()
     intro = f"XBasic {version} ({current_date_time}) on {os_name.lower()}"

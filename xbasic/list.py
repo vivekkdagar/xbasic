@@ -33,8 +33,7 @@ class List(Value):
             new_list = self.copy()
             new_list.elements.extend(other.elements)
             return new_list, None
-        else:
-            return None, Value.illegal_operation(self, other)
+        return None, Value.illegal_operation(self, other)
 
     def dived_by(self, other):
         if isinstance(other, Number):

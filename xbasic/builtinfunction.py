@@ -5,6 +5,7 @@ from .number import Number
 from .string_value import String
 from .list import List
 from .error_handler.rterror import RTError
+import math
 
 
 class BuiltInFunction(BaseFunction):
@@ -50,6 +51,18 @@ class BuiltInFunction(BaseFunction):
     def execute_print_ret(self, exec_ctx):
         return RTResult().success(String(str(exec_ctx.symbol_table.get('value'))))
 
+    def execute_sroot(self, exec_ctx):
+        try:
+            x = float(str(exec_ctx.symbol_table.get('value')))
+            if x > 0:
+                return RTResult().success(math.sqrt(x))
+        except:
+            return RTResult().failure(RTError(
+                self.pos_start, self.pos_end,
+                "Only positive numbers can be square root",
+                exec_ctx
+            ))
+
     execute_print_ret.arg_names = ['value']
 
     def execute_input(self, exec_ctx):
@@ -62,16 +75,16 @@ class BuiltInFunction(BaseFunction):
         while True:
             text = input()
             try:
-                number = int(text)
+                number = float(text)
                 break
             except ValueError:
-                print(f"'{text}' must be an integer. Try again!")
+                print(f"'{text}' must be a number. Try again!")
         return RTResult().success(Number(number))
 
     execute_input_int.arg_names = []
 
     def execute_clear(self, exec_ctx):
-        os.system('cls' if os.name == 'nt' else 'cls')
+        os.system('clear' if os.name == 'nt' else 'clear')
         return RTResult().success(Number.null)
 
     execute_clear.arg_names = []
@@ -234,4 +247,5 @@ BuiltInFunction.append = BuiltInFunction("append")
 BuiltInFunction.pop = BuiltInFunction("pop")
 BuiltInFunction.extend = BuiltInFunction("extend")
 BuiltInFunction.len = BuiltInFunction("len")
+BuiltInFunction.run = BuiltInFunction("run")
 BuiltInFunction.run = BuiltInFunction("run")

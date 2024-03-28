@@ -2,11 +2,28 @@ from .error import Error
 
 
 class RTError(Error):
-    def __init__(self, pos_start, pos_end, details, context):
+    """
+    Represents a runtime error that occurs during code execution.
+
+    Attributes:
+        pos_start (Position): The start position of the error.
+        pos_end (Position): The end position of the error.
+        details (str): Details about the error.
+        context (Context): The context in which the error occurred.
+    """
+
+    def __init__(self, pos_start, pos_end, details: str, context):
         super().__init__(pos_start, pos_end, 'Runtime Error', details)
         self.context = context
 
-    def as_string(self):
+    def as_string(self) -> str:
+        """
+        Returns a string representation of the error.
+
+        Returns:
+            str: The string representation of the error.
+        """
+
         result = self.generate_traceback()
         result += f'{self.error_name}: {self.details}'
 
@@ -14,7 +31,14 @@ class RTError(Error):
         result += '\n\n' + string_with_arrows(self.pos_start.ftxt, self.pos_start, self.pos_end)
         return result
 
-    def generate_traceback(self):
+    def generate_traceback(self) -> str:
+        """
+        Generates a traceback for the error.
+
+        Returns:
+            str: The generated traceback.
+        """
+
         result = ''
         pos = self.pos_start
         ctx = self.context

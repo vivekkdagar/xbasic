@@ -9,9 +9,6 @@ class Interpreter:
     def visit(self, node, context):
         method_name = f'visit_{type(node).__name__}'
         method = getattr(self, method_name, self.no_visit_method)
-
-        if "access" in method_name.lower():
-            return self.visit_VarAccessNode(node, data_type="", context=context)
         return method(node, context)
 
     def no_visit_method(self, node, context):
@@ -46,7 +43,7 @@ class Interpreter:
         )
 
     @staticmethod
-    def visit_VarAccessNode(node, data_type, context):
+    def visit_VarAccessNode(node, context):
         res = RTResult()
         var_name = node.var_name_tok.value
         value = context.symbol_table.get(var_name)
@@ -75,14 +72,17 @@ class Interpreter:
         a = str(obj.make_tokens()).lower()
         if (("int" in a or "float" in a or "minus" in a) and "comma" not in a) and (str(node.dtype).lower() == "num"):
             context.symbol_table.set(var_name, value)
+            context.symbol_table.set_data_type(var_name, str(node.dtype).lower())
             return res.success(value)
         if isinstance(value, xbasic.string_value.String) and "comma" not in a:
             if str(node.dtype).lower() == "text":
                 context.symbol_table.set(var_name, value)
+                context.symbol_table.set_data_type(var_name, str(node.dtype).lower())
                 return res.success(value)
         if str(node.dtype).lower() == "list":
             if "comma" in a:
                 context.symbol_table.set(var_name, value)
+                context.symbol_table.set_data_type(var_name, str(node.dtype).lower())
                 return res.success(value)
 
         from .error_handler.rterror import RTError
@@ -123,9 +123,9 @@ class Interpreter:
             result, error = left.get_comparison_lte(right)
         elif node.op_tok.type == TT_GTE:
             result, error = left.get_comparison_gte(right)
-        elif node.op_tok.matches(TT_KEYWORD, 'AND'):
+        elif node.op_tok.matches(TT_KEYWORD, 'and'):
             result, error = left.anded_by(right)
-        elif node.op_tok.matches(TT_KEYWORD, 'OR'):
+        elif node.op_tok.matches(TT_KEYWORD, 'or'):
             result, error = left.ored_by(right)
 
         if error:
@@ -143,7 +143,7 @@ class Interpreter:
 
         if node.op_tok.type == TT_MINUS:
             number, error = number.multed_by(Number(-1))
-        elif node.op_tok.matches(TT_KEYWORD, 'NOT'):
+        elif node.op_tok.matches(TT_KEYWORD, 'not'):
             number, error = number.notted()
 
         if error:

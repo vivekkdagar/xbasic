@@ -1,3 +1,47 @@
-list x = [1, 2.0, 3]
-IF (x/0) > 0 THEN
-    print(x)
+# Function to find factorial of a number
+FN factorial(number)
+    num fact = 1
+
+    FOR i = 1 TO number+1 THEN
+        num fact = fact * i
+    END
+
+    RETURN fact
+END
+
+# Function to find array sum
+FN sum(array)
+    IF is_list(array) THEN
+        num sum = 0
+
+        FOR i = 0 TO len(array) THEN
+            num sum = sum + array / i
+        END
+
+        RETURN sum
+    END
+
+    RETURN "Argument is not a list"
+END
+
+# Print table of factorial of number
+FN printTable(number)
+    IF is_num(number) THEN
+        IF number > 0 THEN
+            num fact = factorial(number)
+            list res = [fact, fact*2]
+            FOR i = 3 TO 11 THEN
+                append(res, fact*i)
+            END
+
+            RETURN res
+        END
+
+        RETURN "Non-negative number only please"
+    END
+
+    RETURN "Argument is not a number"
+END
+
+print(printTable(3))
+print(sum([1, 2, 3]))
