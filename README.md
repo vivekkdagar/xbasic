@@ -43,6 +43,7 @@
 # :notebook_with_decorative_cover: Table of Contents
 
 - [About the Project](#star2-about-the-project)
+- [Installation & Usage Guide](#pypi)
 - [Contributing](#wave-contributing)
 - [FAQ](#grey_question-faq)
 - [License](#warning-license)
