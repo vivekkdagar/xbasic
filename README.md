@@ -5,7 +5,7 @@
 <h1>xbasic</h1>
 <p>A Python-based, extended interpretation of the BASIC language, enriched with additional features and functionalities.</p>
 
-<h4> <span> · </span> <a href="https://github.com/vivekkdagar/xbasic/blob/master/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/vivekkdagar/xbasic/issues"> Report Bug </a> <span> · </span> <a href="https://github.com/vivekkdagar/xbasic/issues"> Request Feature </a> </h4>
+<h4> <span> · </span> <a href="https://github.com/vivekkdagar/xbasic/blob/master/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/vivekkdagar/xbasic/blob/main/SYNTAX.md"> Syntax Guide </a> <span> · </span> <a href="https://github.com/vivekkdagar/xbasic/blob/main/example.bsx"> Example program </a> </h4>
 
 
 <br>
