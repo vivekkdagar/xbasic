@@ -7,5 +7,5 @@ A Python-based, extended interpretation of the BASIC language, enriched with add
 xbasic
 ```
 
-![App Screenshot](https://github.com/vivekkdagar/xbasic/blob/main/assets/menu.png)
+![App Screenshot](https://github.com/vivekkdagar/xbasic/blob/main/assets/console.png)
 
