@@ -44,17 +44,6 @@
 <!-- TOC --><a name="notebook_with_decorative_cover-table-of-contents"></a>
 # :notebook_with_decorative_cover: Table of Contents
 
-<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
-
-  
-   * 
-   * 
-   * [:toolbox: Installation (from PyPI or Build from Source)]()
-   * [:book: Usage Guide](#book-usage-guide)
-   * [:wave: Contributing](#wave-contributing)
-   * [:grey_question: FAQ](#grey_question-faq)
-
-<!-- TOC end -->
 - [Project Feature Breakdown](#-project-feature-breakdown)
 - [Screenshots](#camera-screenshots)
 - [Installation & Usage Guide](#toolbox-installation-from-pypi-or-build-from-source)
