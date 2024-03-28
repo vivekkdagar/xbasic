@@ -205,7 +205,7 @@ newList = myList + [7, 8, 9]  // Concatenating lists
 
 ---
 
-
+<a name="strings"></a>
 ### 7. Strings
 
 XBasic provides various string operations for manipulating textual data. Here are some commonly used string operations:
