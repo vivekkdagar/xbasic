@@ -1,6 +1,16 @@
 # Function to find factorial of a number
 text t = "hi" * 2
 
+num x = 23
+
+IF x > 23 THEN
+    print("hi")
+ELIF x > 21 THEN
+    print("h2")
+ELSE
+    print("no")
+END
+
 FN factorial(number)
     num fact = 1
 

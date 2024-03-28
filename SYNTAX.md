@@ -11,33 +11,32 @@
 
 <a name="introduction"></a>
 
-## 2. Variables and Data Types
+## 1. Variables and Data Types
 
 ### Variable Assignment
 
-Variables in XBasic are dynamically typed, meaning their data type is inferred from the assigned value. You can assign a value to a variable using the following syntax:
-
+In XBasic, you can assign values to variables using the following syntax:
 ```xbasic
-VAR_NAME = value
+datatype varname = value
 ```
 
 Here's an example:
 
 ```xbasic
-x = 10
-name = "John"
+num x = 10
+text name = "John"
 ```
 
 ### Data Types
 
 XBasic supports the following data types:
 
-- **Numeric**: Integers and floating-point numbers.
-- **Text**: Strings of characters enclosed in double or single quotes.
-- **List**: Ordered collections of values.
+- **num**: Integers and floating-point numbers.
+- **text**: Strings of characters enclosed in double or single quotes.
+- **list**: Comma separated collections of values. There must be atleast 2 values in a list
 
 <a name="operators"></a>
-## 3. Operators
+## 2. Operators
 
 ### Arithmetic Operators
 
@@ -52,7 +51,7 @@ XBasic supports standard arithmetic operators for numeric operations:
 Example:
 
 ```xbasic
-result = 10 * (5 + 3) / 2
+num result = 10 * (5 + 3) / 2
 ```
 
 ### Comparison Operators
@@ -69,9 +68,9 @@ XBasic provides comparison operators for comparing values:
 Example:
 
 ```xbasic
-x = 5
-y = 10
-is_greater = x > y
+num x = 5
+num y = 10
+num is_greater = x > y
 ```
 
 <a name="control-flow"></a>
@@ -92,7 +91,7 @@ END
 Example:
 
 ```xbasic
-x = 10
+num x = 10
 IF x > 5 THEN
     PRINT "x is greater than 5"
 ELSE
@@ -114,7 +113,7 @@ Example:
 
 ```xbasic
 FOR i = 1 TO 5
-    PRINT i
+    print(i)
 NEXT
 ```
 
@@ -131,10 +130,10 @@ END
 Example:
 
 ```xbasic
-x = 1
+num x = 1
 WHILE x <= 5
-    PRINT x
-    x = x + 1
+    print(x)
+    num x = x + 1
 END
 ```
 
@@ -156,7 +155,7 @@ Example:
 
 ```xbasic
 FN greet(name)
-    PRINT "Hello, " + name
+    RETURN name * 2
 END
 ```
 
@@ -165,13 +164,13 @@ END
 Functions are called by specifying the function name and passing arguments:
 
 ```xbasic
-result = functionName(arg1, arg2)
+datatype result = functionName(arg1, arg2)
 ```
 
 Example:
 
 ```xbasic
-greet("John")
+text val = greet("John")
 ```
 
 <a name="lists"></a>
@@ -190,8 +189,8 @@ myList = [1, 2, 3, 4, 5]
 XBasic provides various operations for manipulating lists, such as:
 
 - Accessing elements by index
-- Appending elements
-- Removing elements
+- Appending elements: You can do using the append method or using the + operator
+- Removing elements: you can do using the minus operator
 - Concatenating lists
 
 Example:
@@ -205,4 +204,44 @@ newList = myList + [7, 8, 9]  // Concatenating lists
 
 ---
 
-This guide covers the fundamental aspects of XBasic syntax and usage, including variables, data types, operators, control flow, functions, and lists. With this knowledge, you can start writing XBasic programs and explore its capabilities further.
+
+### 7. String Operations
+
+XBasic provides various string operations for manipulating textual data. Here are some commonly used string operations:
+
+#### Concatenation
+Strings can be concatenated using the `+` operator. This operation combines two or more strings into a single string.
+
+Example:
+```xbasic
+text str1 = "Hello"
+text str2 = "world"
+text greeting = str1 + " " + str2  # Result: "Hello world"
+```
+
+#### Length
+The length of a string can be obtained using the `len()` function. It returns the number of characters in the string.
+
+Example:
+```xbasic
+text str = "Hello"
+num length = len(str)  # Result: 5
+```
+
+### String Repetition
+
+In XBasic, you can repeat a string multiple times by using the multiplication (`*`) operator between a string and a numeric value. This operation duplicates the string the specified number of times.
+
+#### Syntax:
+```
+text * num
+```
+
+#### Example:
+```xbasic
+text str = "Hello "
+num repetitions = 3
+text repeated_str = str * repetitions  # Result: "Hello Hello Hello "
+```
+
+In the above example, the string `"Hello "` is repeated three times, resulting in `"Hello Hello Hello "`. This feature is useful when you need to generate repeated patterns or strings in your XBasic programs efficiently.
