@@ -1,3 +1,21 @@
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+   * [🪄 Project Feature Breakdown](#-project-feature-breakdown)
+- [:notebook_with_decorative_cover: Table of Contents](#notebook_with_decorative_cover-table-of-contents)
+   * [:star2: About the Project](#star2-about-the-project)
+      + [:camera: Screenshots](#camera-screenshots)
+         - [Executing a file within the shell](#executing-a-file-within-the-shell)
+         - [Using the interactive shell](#using-the-interactive-shell)
+         - [Opening the github page](#opening-the-github-page)
+   * [:toolbox: Installation (from PyPI or Build from Source)](#toolbox-installation-from-pypi-or-build-from-source)
+      + [Build from Source](#build-from-source)
+   * [:book: Usage Guide](#book-usage-guide)
+   * [:wave: Contributing](#wave-contributing)
+   * [:grey_question: FAQ](#grey_question-faq)
+   * [:warning: License](#warning-license)
+
+<!-- TOC end -->
+
 <div align='center'>
 
 <img src=https://github.com/vivekkdagar/xbasic/blob/main/assets/menu.png alt="logo"/>
@@ -10,6 +28,7 @@
 
 <br>
 
+<!-- TOC --><a name="-project-feature-breakdown"></a>
 ## 🪄 Project Feature Breakdown
 </div>
 
@@ -40,6 +59,7 @@
 - Handles contextual information during parsing and execution using the `Context` class.
 <br>
 
+<!-- TOC --><a name="notebook_with_decorative_cover-table-of-contents"></a>
 # :notebook_with_decorative_cover: Table of Contents
 
 - [About the Project](#star2-about-the-project)
@@ -50,21 +70,27 @@
 - [Acknowledgements](#gem-acknowledgements)
 
 
+<!-- TOC --><a name="star2-about-the-project"></a>
 ## :star2: About the Project
 
+<!-- TOC --><a name="camera-screenshots"></a>
 ### :camera: Screenshots
 
+<!-- TOC --><a name="executing-a-file-within-the-shell"></a>
 #### Executing a file within the shell
 <div align="center"> <a href=""><img src="https://github.com/vivekkdagar/xbasic/blob/main/assets/file.png" alt='image' width='800'/></a> </div>
 
+<!-- TOC --><a name="using-the-interactive-shell"></a>
 #### Using the interactive shell
 <div align="center"> <a href=""><img src="https://github.com/vivekkdagar/xbasic/blob/main/assets/shell.png" alt='image' width='800'/></a> </div>
 
+<!-- TOC --><a name="opening-the-github-page"></a>
 #### Opening the github page
 <div align="center"> <a href=""><img src="https://github.com/vivekkdagar/xbasic/blob/main/assets/git.png" alt='image' width='800'/></a> </div>
 
 
 
+<!-- TOC --><a name="toolbox-installation-from-pypi-or-build-from-source"></a>
 ## :toolbox: Installation (from PyPI or Build from Source)
 
 
@@ -78,6 +104,7 @@ pip install xbasic
 ```
 
 
+<!-- TOC --><a name="build-from-source"></a>
 ### Build from Source
 
 Clone the repository
@@ -103,6 +130,7 @@ Install the package:
 pip install dist/*gz
 ```
 
+<!-- TOC --><a name="book-usage-guide"></a>
 ## :book: Usage Guide
 
 Below is a guide on how to interact with xbasic:
@@ -130,6 +158,7 @@ Below is a guide on how to interact with xbasic:
 
 
 
+<!-- TOC --><a name="wave-contributing"></a>
 ## :wave: Contributing
 
 <a href="https://github.com/vivekkdagar/xbasic/graphs/contributors"> <img src="https://contrib.rocks/image?repo=Louis3797/awesome-readme-template" /> </a>
@@ -138,6 +167,7 @@ Contributions are always welcome!
 
 see `contributing.md` for ways to get started
 
+<!-- TOC --><a name="grey_question-faq"></a>
 ## :grey_question: FAQ
 
 **1. What is XBasic?**
@@ -160,6 +190,7 @@ see `contributing.md` for ways to get started
 
 
 
+<!-- TOC --><a name="warning-license"></a>
 ## :warning: License
 
 Distributed under the MIT License. See LICENSE for more information.
