@@ -146,7 +146,7 @@ Below is a guide on how to interact with xbasic:
 
 Contributions are always welcome!
 
-see `contributing.md` for ways to get started
+see [`contributing.md`](CONTRIBUTING.md) for ways to get started
 
 <!-- TOC --><a name="grey_question-faq"></a>
 ## :grey_question: FAQ
