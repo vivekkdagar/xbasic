@@ -8,6 +8,7 @@
 4. [Control Flow](#control-flow)
 5. [Functions](#functions)
 6. [Lists](#lists)
+7. [Strings](#strings)
 
 <a name="introduction"></a>
 
@@ -205,7 +206,7 @@ newList = myList + [7, 8, 9]  // Concatenating lists
 ---
 
 
-### 7. String Operations
+### 7. Strings
 
 XBasic provides various string operations for manipulating textual data. Here are some commonly used string operations:
 
