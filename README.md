@@ -1,54 +1,164 @@
-# xbasic
-A Python-based, extended interpretation of the BASIC language, enriched with additional features and functionalities.
+<div align='center'>
 
-## Installation
+<img src=https://github.com/vivekkdagar/xbasic/blob/main/assets/menu.png alt="logo"/>
 
-Install xbasic with pip
+<h1>xbasic</h1>
+<p>A Python-based, extended interpretation of the BASIC language, enriched with additional features and functionalities.</p>
+
+<h4> <span> · </span> <a href="https://github.com/vivekkdagar/xbasic/blob/master/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/vivekkdagar/xbasic/issues"> Report Bug </a> <span> · </span> <a href="https://github.com/vivekkdagar/xbasic/issues"> Request Feature </a> </h4>
+
+
+<br>
+
+## 🪄 Project Feature Breakdown
+</div>
+
+**Parsing and Tokenization:**
+- Utilizes a custom lexical analyzer or tokenizer (`Token`, `TokenList`) to break down source code into tokens (keywords, identifiers, operators, literals).
+- Implements parsing logic using recursive descent parsing.
+- Recognizes the structure of the input code based on defined grammar rules.
+
+**Abstract Syntax Tree (AST):**
+- Defines classes (`Value`, `String`, `NumberNode`, `BinOpNode`, etc.) to represent nodes in the abstract syntax tree (AST).
+- Constructs the AST by recursively building nodes during parsing.
+  
+**Error Handling:**
+- Provides a `ParseResult` class to manage parsing results and errors.
+- Defines error classes like `InvalidSyntaxError` and `RTError` for reporting syntax and runtime errors.
+
+**Execution Logic:**
+- Implements an interpreter component responsible for executing parsed AST nodes.
+- Traverses the AST and performs operations defined by language semantics.
+
+**Language Features:**
+- Supports variables with data types such as numbers, strings, and lists.
+- Provides constructs for control flow (`if`, `for`, `while` loops) and flow control statements (`return`, `continue`, `break`).
+- Allows defining and calling functions (`func-def`, `call`).
+
+**Utilities:**
+- Tracks position (line and column numbers) of tokens and nodes in the source code using utilities like `Position`.
+- Handles contextual information during parsing and execution using the `Context` class.
+<br>
+
+# :notebook_with_decorative_cover: Table of Contents
+
+- [About the Project](#star2-about-the-project)
+- [Contributing](#wave-contributing)
+- [FAQ](#grey_question-faq)
+- [License](#warning-license)
+- [Acknowledgements](#gem-acknowledgements)
+
+
+## :star2: About the Project
+
+### :camera: Screenshots
+
+#### Executing a file within the shell
+<div align="center"> <a href=""><img src="https://github.com/vivekkdagar/xbasic/blob/main/assets/file.png" alt='image' width='800'/></a> </div>
+
+#### Using the interactive shell
+<div align="center"> <a href=""><img src="https://github.com/vivekkdagar/xbasic/blob/main/assets/shell.png" alt='image' width='800'/></a> </div>
+
+#### Opening the github page
+<div align="center"> <a href=""><img src="https://github.com/vivekkdagar/xbasic/blob/main/assets/git.png" alt='image' width='800'/></a> </div>
+
+
+
+## :toolbox: Installation (from PyPI or Build from Source)
+
+
+
+<h3><a id="pypi"> Install from PyPI</a></h3>
+
+You can install the `xbasic` package directly from PyPI using the following command:
 
 ```bash
-  pip install xbasic
+pip install xbasic
 ```
-    
-## Alternative installation (without pip)
 
-Clone the project
+
+### Build from Source
+
+Clone the repository
 
 ```bash
-  git clone https://github.com/vivekkdagar/xbasic
+git clone https://github.com/vivekkdagar/xbasic
 ```
 
 Go to the project directory
-
 ```bash
-  cd xbasic
+cd xbasic
 ```
 
 Build the package:
 
 ```bash
-  python3 -m build
+python3 -m build
 ```
 
 Install the package:
 
 ```bash
-  pip install dist/*gz
-```
-## Usage
-
-![App Screenshot](https://github.com/vivekkdagar/xbasic/blob/main/assets/menu.png)
-
-### Execute files
-```
-    xbasic file -f path
+pip install dist/*gz
 ```
 
-### Run an interactive environment
-```
-    xbasic shell
-```
+## :book: Usage Guide
 
-### Open github page
-```
-    xbasic report
-```
+Below is a guide on how to interact with xbasic:
+
+1. **Open github page**
+   ```bash
+     xbasic report
+   ```
+
+
+2. **Start an interactive shell**
+
+   ```bash
+     xbasic shell
+   ```
+
+3. **Execute a file within the shell**
+
+   ```bash
+     xbasic file -f path
+   ```
+   
+   - `-f`: Specify the path where the bsx file is.
+
+
+
+
+## :wave: Contributing
+
+<a href="https://github.com/vivekkdagar/xbasic/graphs/contributors"> <img src="https://contrib.rocks/image?repo=Louis3797/awesome-readme-template" /> </a>
+
+Contributions are always welcome!
+
+see `contributing.md` for ways to get started
+
+## :grey_question: FAQ
+
+**1. What is XBasic?**
+   - XBasic is a project aimed at developing an interpreter for a programming language called XBasic. It involves the creation of a parser, lexer, and executor for XBasic code, allowing users to write and execute XBasic programs.
+
+**2. What features does XBasic offer?**
+   - XBasic aims to provide a range of features common to programming languages, including variable assignment, arithmetic operations, control flow statements (such as if-else, loops), function definitions, and function calls. It also supports data types like numbers, strings, and lists.
+
+**3. How is XBasic implemented?**
+   - XBasic is implemented in Python. The project includes custom logic for lexical analysis (tokenization), parsing, and execution of XBasic code. It utilizes object-oriented programming principles to represent language constructs and manage program execution.
+
+**5. How are errors handled in XBasic?**
+   - XBasic includes error handling mechanisms to report syntax errors during parsing and runtime errors during program execution. Custom error classes are used to provide informative messages, including error location and context, helping users debug their code effectively.
+
+**6. How can I get started with XBasic?**
+   - To get started with XBasic, you can clone the project repository from GitHub and follow the setup instructions. Once set up, you can explore the codebase, contribute to development, or use the interpreter to write and execute XBasic programs. Additionally, documentation and examples are provided to guide users through usage and development processes.
+
+**7. What file format does XBasic use?**
+   - XBasic uses the ".bsx" file format for XBasic source code files. Users can write XBasic code in files with the ".bsx" extension, and the XBasic interpreter can parse and execute these files. This file format helps organize and store XBasic programs efficiently.
+
+
+
+## :warning: License
+
+Distributed under the MIT License. See LICENSE for more information.
