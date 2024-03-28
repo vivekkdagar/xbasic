@@ -25,7 +25,6 @@ TT_COMMA = 'COMMA'
 TT_ARROW = 'ARROW'
 TT_NEWLINE = 'NEWLINE'
 TT_EOF = 'EOF'
-TT_NUM = 'NUM'
 
 KEYWORDS = [
     'num',

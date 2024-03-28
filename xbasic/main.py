@@ -7,6 +7,7 @@ from .init_interp import run
 
 @click.group()
 def cli():
+    """XBasic CLI tool."""
     pass
 
 
@@ -18,6 +19,7 @@ def report():
 
 
 def entry_shell():
+    """Starts an interactive shell."""
     while True:
         text = input('>> ')
         if text.strip() == "":
@@ -33,7 +35,7 @@ def entry_shell():
 @cli.command()
 @click.option('-f', type=click.Path(exists=True), default=None, help='Specify a file to execute within the shell.')
 def shell(f):
-    """Start an interactive shell."""
+    """Start an interactive shell or execute a file within the shell."""
     print_intro()
     if f:
         if not f.endswith('.bsx'):
@@ -49,6 +51,7 @@ def shell(f):
 
 
 def print_intro():
+    """Print introductory information."""
     version = "1.2.1"
     current_date_time = datetime.datetime.now().strftime("%b %d %Y, %H:%M:%S")
     os_name = platform.system()

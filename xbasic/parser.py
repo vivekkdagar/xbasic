@@ -2,29 +2,59 @@ from .utils.token_list import *
 from .utils.parse_result import ParseResult
 from .error_handler.error import InvalidSyntaxError
 from .utils.nodes import *
+from typing import List, Tuple, Union
+from .utils.token import Token
 
 
 class Parser:
-    def __init__(self, tokens):
-        self.tokens = tokens
-        self.tok_idx = -1
+    def __init__(self, tokens: list):
+        """
+        Initializes the parser with a list of tokens.
+
+        Args:
+            tokens (List[Token]): The list of tokens to be parsed.
+        """
+        self.tokens: List[Token] = tokens
+        self.tok_idx: int = -1
         self.advance()
 
-    def advance(self):
+    def advance(self) -> Token:
+        """
+        Moves to the next token.
+
+        Returns:
+            Token: The next token.
+        """
         self.tok_idx += 1
         self.update_current_tok()
         return self.current_tok
 
-    def reverse(self, amount=1):
+    def reverse(self, amount: int = 1) -> Token:
+        """
+        Moves back by the specified amount of tokens.
+
+        Args:
+            amount (int): The number of tokens to move back.
+
+        Returns:
+            Token: The token after moving back.
+        """
         self.tok_idx -= amount
         self.update_current_tok()
         return self.current_tok
 
     def update_current_tok(self):
+        """Updates the current token."""
         if 0 <= self.tok_idx < len(self.tokens):
             self.current_tok = self.tokens[self.tok_idx]
 
-    def parse(self):
+    def parse(self) -> ParseResult:
+        """
+        Parses the tokens into an abstract syntax tree (AST).
+
+        Returns:
+            ParseResult: The result of the parsing operation.
+        """
         res = self.statements()
         if not res.error and self.current_tok.type != TT_EOF:
             return res.failure(InvalidSyntaxError(
@@ -35,7 +65,13 @@ class Parser:
 
     ###################################
 
-    def statements(self):
+    def statements(self) -> ParseResult:
+        """
+        Parses a series of statements.
+
+        Returns:
+            ParseResult: The result of parsing the statements.
+        """
         res = ParseResult()
         statements = []
         pos_start = self.current_tok.pos_start.copy()
@@ -75,7 +111,13 @@ class Parser:
             self.current_tok.pos_end.copy()
         ))
 
-    def statement(self):
+    def statement(self) -> ParseResult:
+        """
+        Parses a single statement.
+
+        Returns:
+            ParseResult: The result of parsing the statement.
+        """
         res = ParseResult()
         pos_start = self.current_tok.pos_start.copy()
 
@@ -102,12 +144,18 @@ class Parser:
         if res.error:
             return res.failure(InvalidSyntaxError(
                 self.current_tok.pos_start, self.current_tok.pos_end,
-                "Expected 'RETURN', 'CONTINUE', 'BREAK', 'VAR', 'IF', 'FOR', 'WHILE', 'FN', int, float, identifier, "
+                "Expected 'RETURN', 'CONTINUE', 'BREAK', 'IF', 'FOR', 'WHILE', 'FN', num, identifier, "
                 "'+', '-', '(', '[' or 'not'"
             ))
         return res.success(expr)
 
-    def expr(self):
+    def expr(self) -> ParseResult:
+        """
+        Parses an expression.
+
+        Returns:
+            ParseResult: The result of parsing the expression.
+        """
         res = ParseResult()
 
         if (self.current_tok.matches(TT_KEYWORD, 'num') or self.current_tok.matches(TT_KEYWORD, 'text')
@@ -149,7 +197,13 @@ class Parser:
 
         return res.success(node)
 
-    def comp_expr(self):
+    def comp_expr(self) -> ParseResult:
+        """
+        Parses a comparison expression.
+
+        Returns:
+            ParseResult: The result of parsing the comparison expression.
+        """
         res = ParseResult()
 
         if self.current_tok.matches(TT_KEYWORD, 'not'):
@@ -172,13 +226,28 @@ class Parser:
 
         return res.success(node)
 
-    def arith_expr(self):
+    def arith_expr(self) -> ParseResult:
+        """
+        Parses an arithmetic expression.
+
+        Returns:
+            ParseResult: The result of parsing the arithmetic expression.
+        """
         return self.bin_op(self.term, (TT_PLUS, TT_MINUS))
 
-    def term(self):
+    def term(self) -> ParseResult:
+        """
+        Parses a term in an arithmetic expression.
+
+        Returns:
+            ParseResult: The result of parsing the term.
+        """
         return self.bin_op(self.factor, (TT_MUL, TT_DIV))
 
     def factor(self):
+        """
+        Parses a factor in an arithmetic expression.
+        """
         res = ParseResult()
         tok = self.current_tok
 
@@ -192,10 +261,16 @@ class Parser:
 
         return self.power()
 
-    def power(self):
+    def power(self) -> ParseResult:
+        """
+        Parses an expression involving exponentiation.
+
+        Returns:
+            ParseResult: The result of parsing the expression.
+        """
         return self.bin_op(self.call, (TT_POW,), self.factor)
 
-    def call(self):
+    def call(self) -> ParseResult:
         res = ParseResult()
         atom = res.register(self.atom())
         if res.error:
@@ -237,7 +312,7 @@ class Parser:
             return res.success(CallNode(atom, arg_nodes))
         return res.success(atom)
 
-    def atom(self):
+    def atom(self) -> ParseResult:
         res = ParseResult()
         tok = self.current_tok
 
@@ -307,7 +382,7 @@ class Parser:
             "Expected int, float, identifier, '+', '-', '(', '[', IF', 'FOR', 'WHILE', 'FN'"
         ))
 
-    def list_expr(self):
+    def list_expr(self) -> ParseResult:
         res = ParseResult()
         element_nodes = []
         pos_start = self.current_tok.pos_start.copy()

@@ -1,4 +1,15 @@
-def string_with_arrows(text, pos_start, pos_end):
+def string_with_arrows(text: str, pos_start, pos_end) -> str:
+    """
+        Generates a string representation of the given text with arrows (^) indicating the range between two positions.
+
+        Args:
+            text (str): The text content.
+            pos_start (Position): The starting position.
+            pos_end (Position): The ending position.
+
+        Returns:
+            str: A string representation of the text with arrows indicating the range.
+    """
     result = ''
 
     # Calculate indices

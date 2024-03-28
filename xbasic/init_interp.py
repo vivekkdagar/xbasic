@@ -23,7 +23,17 @@ global_symbol_table.set("len", BuiltInFunction.len)
 global_symbol_table.set("RUN", BuiltInFunction.run)
 
 
-def run(fn, text):
+def run(fn: str, text: str) -> tuple:
+    """
+    Run the program with the given filename and text.
+
+    Args:
+        fn (str): The filename.
+        text (str): The text of the program.
+
+    Returns:
+        tuple: A tuple containing the result value and error, if any.
+    """
     # Generate tokens
 
     from .lexer import Lexer

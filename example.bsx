@@ -1,4 +1,6 @@
 # Function to find factorial of a number
+text t = "hi" * 2
+
 FN factorial(number)
     num fact = 1
 
@@ -43,5 +45,8 @@ FN printTable(number)
     RETURN "Argument is not a number"
 END
 
+print("Table of 3 factorial")
 print(printTable(3))
+
+print("Sum of [1, 2, 3]")
 print(sum([1, 2, 3]))

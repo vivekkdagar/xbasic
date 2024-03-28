@@ -7,29 +7,79 @@ from .list import List
 
 class Interpreter:
     def visit(self, node, context):
+        """
+        Visit a node and execute it in the provided context.
+
+        Args:
+            node: The node to visit.
+            context: The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of executing the node.
+        """
         method_name = f'visit_{type(node).__name__}'
         method = getattr(self, method_name, self.no_visit_method)
         return method(node, context)
 
     def no_visit_method(self, node, context):
+        """
+        Handle cases where a visit method is not defined for a node.
+
+        Args:
+            node: The node for which the visit method is not defined.
+            context: The context in which the node was being executed.
+
+        Returns:
+            RTResult: An RTResult with a failure indicating the lack of defined visit method.
+        """
         raise Exception(f'No visit_{type(node).__name__} method defined')
 
     ###################################
 
     @staticmethod
     def visit_NumberNode(node, context):
+        """
+        Visit a NumberNode and evaluate its value.
+
+        Args:
+            node (NumberNode): The NumberNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of evaluating the NumberNode.
+        """
         return RTResult().success(
             Number(node.tok.value).set_context(context).set_pos(node.pos_start, node.pos_end)
         )
 
     @staticmethod
     def visit_StringNode(node, context):
+        """
+        Visit a StringNode and evaluate its value.
+
+        Args:
+            node (StringNode): The StringNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of evaluating the StringNode.
+        """
         from .string_value import String
         return RTResult().success(
             String(node.tok.value).set_context(context).set_pos(node.pos_start, node.pos_end)
         )
 
     def visit_ListNode(self, node, context):
+        """
+        Visit a ListNode and evaluate its elements.
+
+        Args:
+            node (ListNode): The ListNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of evaluating the ListNode.
+        """
         res = RTResult()
         elements = []
 
@@ -44,6 +94,16 @@ class Interpreter:
 
     @staticmethod
     def visit_VarAccessNode(node, context):
+        """
+        Visit a VarAccessNode and retrieve its value from the symbol table.
+
+        Args:
+            node (VarAccessNode): The VarAccessNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of evaluating the VarAccessNode.
+        """
         res = RTResult()
         var_name = node.var_name_tok.value
         value = context.symbol_table.get(var_name)
@@ -60,6 +120,16 @@ class Interpreter:
         return res.success(value)
 
     def visit_VarAssignNode(self, node, context):
+        """
+        Visit a VarAssignNode and assign a value to a variable in the symbol table.
+
+        Args:
+            node (VarAssignNode): The VarAssignNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of evaluating the VarAssignNode.
+        """
         res = RTResult()
         var_name = node.var_name_tok.value
         value = res.register(self.visit(node.value_node, context))
@@ -72,17 +142,14 @@ class Interpreter:
         a = str(obj.make_tokens()).lower()
         if (("int" in a or "float" in a or "minus" in a) and "comma" not in a) and (str(node.dtype).lower() == "num"):
             context.symbol_table.set(var_name, value)
-            context.symbol_table.set_data_type(var_name, str(node.dtype).lower())
             return res.success(value)
         if isinstance(value, xbasic.string_value.String) and "comma" not in a:
             if str(node.dtype).lower() == "text":
                 context.symbol_table.set(var_name, value)
-                context.symbol_table.set_data_type(var_name, str(node.dtype).lower())
                 return res.success(value)
         if str(node.dtype).lower() == "list":
             if "comma" in a:
                 context.symbol_table.set(var_name, value)
-                context.symbol_table.set_data_type(var_name, str(node.dtype).lower())
                 return res.success(value)
 
         from .error_handler.rterror import RTError
@@ -93,6 +160,16 @@ class Interpreter:
         ))
 
     def visit_BinOpNode(self, node, context):
+        """
+        Visit a BinOpNode and perform a binary operation.
+
+        Args:
+            node (BinOpNode): The BinOpNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of evaluating the BinOpNode.
+        """
         res = RTResult()
         left = res.register(self.visit(node.left_node, context))
         if res.should_return():
@@ -134,6 +211,16 @@ class Interpreter:
             return res.success(result.set_pos(node.pos_start, node.pos_end))
 
     def visit_UnaryOpNode(self, node, context):
+        """
+        Visit a UnaryOpNode and perform a unary operation.
+
+        Args:
+            node (UnaryOpNode): The UnaryOpNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of evaluating the UnaryOpNode.
+        """
         res = RTResult()
         number = res.register(self.visit(node.node, context))
         if res.should_return():
@@ -152,6 +239,16 @@ class Interpreter:
             return res.success(number.set_pos(node.pos_start, node.pos_end))
 
     def visit_IfNode(self, node, context):
+        """
+        Visit an IfNode and execute the corresponding block based on conditions.
+
+        Args:
+            node (IfNode): The IfNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of evaluating the IfNode.
+        """
         res = RTResult()
 
         for condition, expr, should_return_null in node.cases:
@@ -175,6 +272,16 @@ class Interpreter:
         return res.success(Number.null)
 
     def visit_ForNode(self, node, context):
+        """
+        Visit a ForNode and execute a loop over a range of values.
+
+        Args:
+            node (ForNode): The ForNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of evaluating the ForNode.
+        """
         res = RTResult()
         elements = []
 
@@ -222,6 +329,16 @@ class Interpreter:
         )
 
     def visit_WhileNode(self, node, context):
+        """
+        Visit a WhileNode and execute a loop while a condition is true.
+
+        Args:
+            node (WhileNode): The WhileNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of evaluating the WhileNode.
+        """
         res = RTResult()
         elements = []
 
@@ -252,6 +369,16 @@ class Interpreter:
 
     @staticmethod
     def visit_FuncDefNode(node, context):
+        """
+        Visit a FuncDefNode and define a new function in the symbol table.
+
+        Args:
+            node (FuncDefNode): The FuncDefNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of evaluating the FuncDefNode.
+        """
         res = RTResult()
 
         func_name = node.var_name_tok.value if node.var_name_tok else None
@@ -268,6 +395,16 @@ class Interpreter:
         return res.success(func_value)
 
     def visit_CallNode(self, node, context):
+        """
+        Visit a CallNode and execute a function call.
+
+        Args:
+            node (CallNode): The CallNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of evaluating the CallNode.
+        """
         res = RTResult()
         args = []
 
@@ -288,6 +425,16 @@ class Interpreter:
         return res.success(return_value)
 
     def visit_ReturnNode(self, node, context):
+        """
+        Visit a ReturnNode and return a value from a function.
+
+        Args:
+            node (ReturnNode): The ReturnNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: The result of evaluating the ReturnNode.
+        """
         res = RTResult()
 
         if node.node_to_return:
@@ -301,8 +448,28 @@ class Interpreter:
 
     @staticmethod
     def visit_ContinueNode(node, context):
+        """
+        Visit a ContinueNode and signal a continue in a loop.
+
+        Args:
+            node (ContinueNode): The ContinueNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: An RTResult indicating a loop should continue.
+        """
         return RTResult().success_continue()
 
     @staticmethod
     def visit_BreakNode(node, context):
+        """
+        Visit a BreakNode and signal a break in a loop.
+
+        Args:
+            node (BreakNode): The BreakNode to visit.
+            context (Context): The context in which to execute the node.
+
+        Returns:
+            RTResult: An RTResult indicating a loop should break.
+        """
         return RTResult().success_break()

@@ -3,6 +3,8 @@ import math
 
 
 class Number(Value):
+    """Represents a numeric value."""
+
     def __init__(self, value):
         super().__init__()
         self.value = value
@@ -84,18 +86,22 @@ class Number(Value):
         return Number(1 if self.value == 0 else 0).set_context(self.context), None
 
     def copy(self):
+        """Create a copy of the current number."""
         copy = Number(self.value)
         copy.set_pos(self.pos_start, self.pos_end)
         copy.set_context(self.context)
         return copy
 
     def is_true(self):
+        """Check if the current number is considered true."""
         return self.value != 0
 
     def __str__(self):
+        """Return the string representation of the current number."""
         return str(self.value)
 
     def __repr__(self):
+        """Return the string representation of the current number for debugging purposes."""
         return str(self.value)
 
 

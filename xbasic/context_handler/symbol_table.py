@@ -1,3 +1,6 @@
+from typing import Optional, Dict, Any
+
+
 class SymbolTable:
     """
     Represents a symbol table that stores variables and their values.
@@ -7,11 +10,11 @@ class SymbolTable:
         parent (SymbolTable, optional): The parent symbol table in the scope hierarchy.
     """
 
-    def __init__(self, parent=None):
-        self.symbols = {}
-        self.parent = parent
+    def __init__(self, parent: Optional['SymbolTable'] = None):
+        self.symbols: Dict[str, Any] = {}
+        self.parent: Optional['SymbolTable'] = parent
 
-    def get(self, name: str):
+    def get(self, name: str) -> Any:
         """
         Retrieves the value associated with a variable name from the symbol table.
 
@@ -27,7 +30,7 @@ class SymbolTable:
             return self.parent.get(name)
         return value
 
-    def set(self, name: str, value):
+    def set(self, name: str, value: Any):
         """
         Sets the value of a variable in the symbol table.
 
