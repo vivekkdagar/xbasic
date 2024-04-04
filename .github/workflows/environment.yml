@@ -1,0 +1,10 @@
+name: my_environment
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - numpy
+  - scipy
+  - matplotlib
+  - click
+  # Add more dependencies as needed
