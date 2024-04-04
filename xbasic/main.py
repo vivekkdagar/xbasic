@@ -8,7 +8,6 @@ from .init_interp import run
 @click.group()
 def cli():
     """XBasic Shell"""
-    pass
 
 
 @cli.command()
