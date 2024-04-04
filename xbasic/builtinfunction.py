@@ -1,6 +1,6 @@
+import os
 from .function import BaseFunction
 from .error_handler.rtresult import RTResult
-import os
 from .number import Number
 from .string_value import String
 from .list import List
@@ -239,7 +239,9 @@ class BuiltInFunction(BaseFunction):
 
     def execute_pop(self, exec_ctx):
         """
-        Execute the built-in pop function, which removes and returns an element from a list at the specified index.
+        Execute the built-in pop function, which
+        removes and returns an element from a list
+        at the specified index.
 
         Args:
             exec_ctx (Context): The execution context.
@@ -278,7 +280,9 @@ class BuiltInFunction(BaseFunction):
 
     def execute_extend(self, exec_ctx):
         """
-        Execute the built-in extend function, which extends one list by appending all the items from another list.
+        Execute the built-in extend function,
+        which extends one list by appending all the items
+        from another list.
 
         Args:
             exec_ctx (Context): The execution context.
@@ -286,27 +290,27 @@ class BuiltInFunction(BaseFunction):
         Returns:
             RTResult: The result of executing the extend function.
         """
-        listA = exec_ctx.symbol_table.get("listA")
-        listB = exec_ctx.symbol_table.get("listB")
+        list_a = exec_ctx.symbol_table.get("list_a")
+        list_b = exec_ctx.symbol_table.get("list_b")
 
-        if not isinstance(listA, List):
+        if not isinstance(list_a, List):
             return RTResult().failure(RTError(
                 self.pos_start, self.pos_end,
                 "First argument must be list",
                 exec_ctx
             ))
 
-        if not isinstance(listB, List):
+        if not isinstance(list_b, List):
             return RTResult().failure(RTError(
                 self.pos_start, self.pos_end,
                 "Second argument must be list",
                 exec_ctx
             ))
 
-        listA.elements.extend(listB.elements)
+        list_a.elements.extend(list_b.elements)
         return RTResult().success(Number.null)
 
-    execute_extend.arg_names = ["listA", "listB"]
+    execute_extend.arg_names = ["list_a", "list_b"]
 
     def execute_len(self, exec_ctx):
         """

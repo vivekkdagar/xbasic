@@ -1,5 +1,5 @@
-from .value import Value
 import math
+from .value import Value
 
 
 class Number(Value):

@@ -1,6 +1,7 @@
 def string_with_arrows(text: str, pos_start, pos_end) -> str:
     """
-        Generates a string representation of the given text with arrows (^) indicating the range between two positions.
+        Generates a string representation of the given text
+        with arrows (^) indicating the range between two positions.
 
         Args:
             text (str): The text content.

@@ -2,7 +2,7 @@ from .utils.token_list import *
 from .utils.parse_result import ParseResult
 from .error_handler.error import InvalidSyntaxError
 from .utils.nodes import *
-from typing import List, Tuple, Union
+from typing import List
 from .utils.token import Token
 
 
@@ -14,6 +14,7 @@ class Parser:
         Args:
             tokens (List[Token]): The list of tokens to be parsed.
         """
+        self.current_tok = None
         self.tokens: List[Token] = tokens
         self.tok_idx: int = -1
         self.advance()
@@ -316,22 +317,16 @@ class Parser:
         res = ParseResult()
         tok = self.current_tok
 
-        if tok.type in (TT_INT, TT_FLOAT):
+        if tok.type in (TT_INT, TT_FLOAT, TT_STRING, TT_IDENTIFIER):
             res.register_advancement()
             self.advance()
-            return res.success(NumberNode(tok))
+            return res.success(
+                NumberNode(tok) if tok.type in (TT_INT, TT_FLOAT)
+                else StringNode(tok) if tok.type == TT_STRING
+                else VarAccessNode(tok)
+            )
 
-        elif tok.type == TT_STRING:
-            res.register_advancement()
-            self.advance()
-            return res.success(StringNode(tok))
-
-        elif tok.type == TT_IDENTIFIER:
-            res.register_advancement()
-            self.advance()
-            return res.success(VarAccessNode(tok))
-
-        elif tok.type == TT_LPAREN:
+        if tok.type == TT_LPAREN:
             res.register_advancement()
             self.advance()
             expr = res.register(self.expr())
@@ -341,46 +336,31 @@ class Parser:
                 res.register_advancement()
                 self.advance()
                 return res.success(expr)
-            else:
-                return res.failure(InvalidSyntaxError(
-                    self.current_tok.pos_start, self.current_tok.pos_end,
-                    "Expected ')'"
-                ))
+            return res.failure(InvalidSyntaxError(
+                self.current_tok.pos_start, self.current_tok.pos_end,
+                "Expected ')'"
+            ))
 
-        elif tok.type == TT_LSQUARE:
-            list_expr = res.register(self.list_expr())
-            if res.error:
-                return res
-            return res.success(list_expr)
+        expr_dict = {
+            'IF': self.if_expr,
+            'FOR': self.for_expr,
+            'WHILE': self.while_expr,
+            'FN': self.func_def,
+        }
 
-        elif tok.matches(TT_KEYWORD, 'IF'):
-            if_expr = res.register(self.if_expr())
-            if res.error:
-                return res
-            return res.success(if_expr)
+        if tok.type == TT_LSQUARE:
+            result = res.register(self.list_expr())
+        elif tok.type == TT_KEYWORD and tok.value in expr_dict:
+            result = res.register(expr_dict[tok.value]())
+        else:
+            return res.failure(InvalidSyntaxError(
+                tok.pos_start, tok.pos_end,
+                "Expected int, float, identifier, '+', '-', '(', '[', IF', 'FOR', 'WHILE', 'FN'"
+            ))
 
-        elif tok.matches(TT_KEYWORD, 'FOR'):
-            for_expr = res.register(self.for_expr())
-            if res.error:
-                return res
-            return res.success(for_expr)
-
-        elif tok.matches(TT_KEYWORD, 'WHILE'):
-            while_expr = res.register(self.while_expr())
-            if res.error:
-                return res
-            return res.success(while_expr)
-
-        elif tok.matches(TT_KEYWORD, 'FN'):
-            func_def = res.register(self.func_def())
-            if res.error:
-                return res
-            return res.success(func_def)
-
-        return res.failure(InvalidSyntaxError(
-            tok.pos_start, tok.pos_end,
-            "Expected int, float, identifier, '+', '-', '(', '[', IF', 'FOR', 'WHILE', 'FN'"
-        ))
+        if res.error:
+            return res
+        return res.success(result)
 
     def list_expr(self) -> ParseResult:
         res = ParseResult()

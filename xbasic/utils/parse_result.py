@@ -6,7 +6,9 @@ class ParseResult:
         Attributes:
             error (Error): The error encountered during parsing, if any.
             node: The resulting node of the parsing operation.
-            last_registered_advance_count (int): The count of advances registered during the last parsing step.
+            last_registered_advance_count (int):
+            The count of advances registered during
+            the last parsing step.
             advance_count (int): The total count of advances registered during parsing.
             to_reverse_count (int): The count of advances to reverse in case of failure.
         """

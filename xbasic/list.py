@@ -16,7 +16,8 @@ class List(Value):
         - other (Any): The element to be added.
 
         Returns:
-        - Tuple[Union['List', None], Union[RTError, None]]: A tuple containing the new list and any potential error.
+        - Tuple[Union['List', None], Union[RTError, None]]:
+        A tuple containing the new list and any potential error.
         """
         new_list = self.copy()
         new_list.elements.append(other)
@@ -30,7 +31,8 @@ class List(Value):
         - other (Any): The element to be removed.
 
         Returns:
-        - Tuple[Union['List', None], Union[RTError, None]]: A tuple containing the new list and any potential error.
+        - Tuple[Union['List', None], Union[RTError, None]]:
+        A tuple containing the new list and any potential error.
         """
         if isinstance(other, Number):
             new_list = self.copy()
@@ -40,7 +42,8 @@ class List(Value):
             except:
                 return None, RTError(
                     other.pos_start, other.pos_end,
-                    'Element at this index could not be removed from list because index is out of bounds',
+                    'Element at this index could not be removed'
+                    'from list because index is out of bounds',
                     self.context
                 )
         else:
@@ -51,7 +54,8 @@ class List(Value):
         Concatenate the list with another list.
 
         Args:
-        - other (Any): The list to concatenate.
+        - other (Any):
+        The list to concatenate.
 
         Returns:
         - Tuple[Union['List', None], Union[RTError, None]]: A tuple containing the new list and any potential error.
@@ -70,7 +74,8 @@ class List(Value):
         - other (Any): The index of the element to retrieve.
 
         Returns:
-        - Tuple[Union[Any, None], Union[RTError, None]]: A tuple containing the retrieved element and any potential error.
+        - Tuple[Union[Any, None], Union[RTError, None]]: A tuple containing
+        the retrieved element and any potential error.
         """
         if isinstance(other, Number):
             try:

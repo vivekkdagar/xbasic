@@ -1,4 +1,4 @@
-import xbasic.string_value
+from .string_value import String
 from .error_handler.rtresult import RTResult
 from .utils.token_list import *
 from .number import Number
@@ -65,7 +65,7 @@ class Interpreter:
         Returns:
             RTResult: The result of evaluating the StringNode.
         """
-        from .string_value import String
+        # from .string_value import String
         return RTResult().success(
             String(node.tok.value).set_context(context).set_pos(node.pos_start, node.pos_end)
         )
@@ -140,10 +140,11 @@ class Interpreter:
         obj = Lexer("fn", str(value))
 
         a = str(obj.make_tokens()).lower()
-        if (("int" in a or "float" in a or "minus" in a) and "comma" not in a) and (str(node.dtype).lower() == "num"):
+        if ((("int" in a or "float" in a or "minus" in a) and "comma" not in a)
+                and (str(node.dtype).lower() == "num")):
             context.symbol_table.set(var_name, value)
             return res.success(value)
-        if isinstance(value, xbasic.string_value.String) and "comma" not in a:
+        if isinstance(value, String) and "comma" not in a:
             if str(node.dtype).lower() == "text":
                 context.symbol_table.set(var_name, value)
                 return res.success(value)
@@ -177,37 +178,32 @@ class Interpreter:
         if res.should_return():
             return res
 
-        if node.op_tok.type == TT_PLUS:
-            result, error = left.added_to(right)
-        elif node.op_tok.type == TT_MINUS:
-            result, error = left.subbed_by(right)
-        elif node.op_tok.type == TT_MUL:
-            result, error = left.multed_by(right)
-        elif node.op_tok.type == TT_DIV:
-            result, error = left.dived_by(right)
-        elif node.op_tok.type == TT_POW:
-            result, error = left.powed_by(right)
-        elif node.op_tok.type == TT_EE:
-            result, error = left.get_comparison_eq(right)
-        elif node.op_tok.type == TT_NE:
-            result, error = left.get_comparison_ne(right)
-        elif node.op_tok.type == TT_LT:
-            result, error = left.get_comparison_lt(right)
-        elif node.op_tok.type == TT_GT:
-            result, error = left.get_comparison_gt(right)
-        elif node.op_tok.type == TT_LTE:
-            result, error = left.get_comparison_lte(right)
-        elif node.op_tok.type == TT_GTE:
-            result, error = left.get_comparison_gte(right)
-        elif node.op_tok.matches(TT_KEYWORD, 'and'):
+        operations = {
+            TT_PLUS: left.added_to,
+            TT_MINUS: left.subbed_by,
+            TT_MUL: left.multed_by,
+            TT_DIV: left.dived_by,
+            TT_POW: left.powed_by,
+            TT_EE: left.get_comparison_eq,
+            TT_NE: left.get_comparison_ne,
+            TT_LT: left.get_comparison_lt,
+            TT_GT: left.get_comparison_gt,
+            TT_LTE: left.get_comparison_lte,
+            TT_GTE: left.get_comparison_gte,
+        }
+
+        op_type = node.op_tok.type
+
+        if node.op_tok.matches(TT_KEYWORD, 'and'):
             result, error = left.anded_by(right)
         elif node.op_tok.matches(TT_KEYWORD, 'or'):
             result, error = left.ored_by(right)
+        else:
+            result, error = operations[op_type](right)
 
         if error:
             return res.failure(error)
-        else:
-            return res.success(result.set_pos(node.pos_start, node.pos_end))
+        return res.success(result.set_pos(node.pos_start, node.pos_end))
 
     def visit_UnaryOpNode(self, node, context):
         """
@@ -234,8 +230,7 @@ class Interpreter:
 
         if error:
             return res.failure(error)
-        else:
-            return res.success(number.set_pos(node.pos_start, node.pos_end))
+        return res.success(number.set_pos(node.pos_start, node.pos_end))
 
     def visit_IfNode(self, node, context):
         """
@@ -425,7 +420,8 @@ class Interpreter:
 
     def visit_ReturnNode(self, node, context):
         """
-        Visit a ReturnNode and return a value from a function.
+        Visit a ReturnNode and return
+        a value from a function.
 
         Args:
             node (ReturnNode): The ReturnNode to visit.
