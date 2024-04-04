@@ -1,6 +1,7 @@
 from typing import Any
 from .error import Error
 
+
 class RTResult:
     """
     Represents the result of an operation during runtime.
@@ -15,6 +16,11 @@ class RTResult:
 
     def __init__(self):
         """Initializes an RTResult object with default values."""
+        self.loop_should_break = None
+        self.loop_should_continue = None
+        self.value = None
+        self.error = None
+        self.func_return_value = None
         self.reset()
 
     def reset(self):

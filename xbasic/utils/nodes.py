@@ -1,6 +1,8 @@
-from typing import List, Optional, Union, TYPE_CHECKING
+from typing import List, Union
+
 from .position import Position
 from .token import Token
+
 
 class NumberNode:
     def __init__(self, tok):

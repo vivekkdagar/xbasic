@@ -82,7 +82,7 @@ class Value:
     def notted(self, other) -> tuple[Optional['Value'], RTError]:
         return None, self.illegal_operation(other)
 
-    def execute(self, args: list):
+    def execute(self):
         """
         Executes the value with the given arguments.
 
@@ -123,7 +123,6 @@ class Value:
         if not other:
             other = self
 
-        from .error_handler.rterror import RTError
         return RTError(
             self.pos_start, other.pos_end,
             'Illegal operation',

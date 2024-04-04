@@ -128,7 +128,7 @@ class Lexer:
         Returns:
         - Token: The token representing the string literal.
         """
-        string = ''
+        text = ''
         pos_start = self.pos.copy()
         escape_character = False
         self.advance()
@@ -140,17 +140,17 @@ class Lexer:
 
         while self.current_char is not None and (self.current_char != '"' or escape_character):
             if escape_character:
-                string += escape_characters.get(self.current_char, self.current_char)
+                text += escape_characters.get(self.current_char, self.current_char)
             else:
                 if self.current_char == '\\':
                     escape_character = True
                 else:
-                    string += self.current_char
+                    text += self.current_char
             self.advance()
             escape_character = False
 
         self.advance()
-        return Token(TT_STRING, string, pos_start, self.pos)
+        return Token(TT_STRING, text, pos_start, self.pos)
 
     def make_identifier(self) -> Token:
         """
