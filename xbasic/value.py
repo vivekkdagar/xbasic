@@ -79,8 +79,8 @@ class Value:
     def ored_by(self, other) -> tuple[Optional['Value'], RTError]:
         return None, self.illegal_operation(other)
 
-    def notted(self, other) -> tuple[Optional['Value'], RTError]:
-        return None, self.illegal_operation(other)
+    def notted(self):
+        return None
 
     def execute(self):
         """

@@ -3,6 +3,7 @@ from .error_handler.rtresult import RTResult
 from .utils.token_list import *
 from .number import Number
 from .list import List
+from .error_handler.rterror import RTError
 
 
 class Interpreter:
@@ -109,7 +110,6 @@ class Interpreter:
         value = context.symbol_table.get(var_name)
 
         if not value:
-            from .error_handler.rterror import RTError
             return res.failure(RTError(
                 node.pos_start, node.pos_end,
                 f"'{var_name}' is not defined",
@@ -152,7 +152,6 @@ class Interpreter:
                 context.symbol_table.set(var_name, value)
                 return res.success(value)
 
-        from .error_handler.rterror import RTError
         return res.failure(RTError(
             node.pos_start, node.pos_end,
             f"Error: no viable conversion from '{a}' to '{str(node.dtype).lower()}'",
@@ -447,7 +446,7 @@ class Interpreter:
         return res.success_return(value)
 
     @staticmethod
-    def visit_ContinueNode(node, context):
+    def visit_ContinueNode():
         """
         Visit a ContinueNode and signal a continue in a loop.
 
@@ -461,7 +460,7 @@ class Interpreter:
         return RTResult().success_continue()
 
     @staticmethod
-    def visit_BreakNode(node, context):
+    def visit_BreakNode():
         """
         Visit a BreakNode and signal a break in a loop.
 
